@@ -12,4 +12,59 @@
  */
 
 return [
+    'doctrine' => [
+        'connection' => [
+            // default connection name
+            'orm_default' => [
+                'driverClass' => \Doctrine\DBAL\Driver\PDOMySql\Driver::class,
+                'params' => [
+                    'host' => 'mysql',
+                    'port' => '3306',
+                    'user' => 'review_syncer',
+                    'password' => 'review_syncer',
+                    'dbname' => 'review_syncer',
+                ],
+            ],
+        ],
+    ],
+    'rabbitmq_module' => [
+        'connection' => [
+            // connection name
+            'default' => [ // default values
+                'type' => 'stream', // Available: stream, socket, ssl, lazy
+                'host' => 'rabbitmq',
+                'port' => 5672,
+                'username' => 'guest',
+                'password' => 'guest',
+                'vhost' => '/',
+                'insist' => false,
+                'read_write_timeout' => 2,
+                'keep_alive' => false,
+                'connection_timeout' => 3,
+                'heartbeat' => 0
+            ]
+        ]
+    ],
+    'caches' => array(
+        'Cache\Transient' => array(
+            'adapter' => 'redis',
+            'ttl' => 86400,
+            'plugins' => array(
+                'exception_handler' => array(
+                    'throw_exceptions' => false,
+                ),
+            ),
+        ),
+    ),
+    'service_manager' => [
+        'factories' => [
+            \Application\Service\ShopifySyncer::class => \Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory::class,
+
+        ],
+    ],
+    \Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory::class => [
+        \Application\Service\ShopifySyncer::class => [
+            'shipify_config'
+        ],
+    ],
 ];
