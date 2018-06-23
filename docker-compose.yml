@@ -1,0 +1,42 @@
+# v3 syntax
+version: '3'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  review_syncer-mysql-data:
+    driver: local
+
+services:
+  # MySQL (5.7)
+  mysql:
+    image: mariadb
+    volumes:
+      - review_syncer-mysql-data:/var/lib/mysql
+#    ports:
+#      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=review_syncer
+      - MYSQL_DATABASE=review_syncer
+      - MYSQL_USER=review_syncer
+      - MYSQL_PASSWORD=review_syncer
+
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq
+  # Redis
+  rabbitmq:
+    image: redis
+    
+  # PHP 7
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www
+    ports:
+      - "80:80"
+    links:
+      - mysql
+      - rabbitmq

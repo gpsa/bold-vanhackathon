@@ -1,0 +1,36 @@
+<?php
+# Load Scripts
+$this->headScript()
+//    ->appendFile('https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.fa.min.js')
+    ->appendFile('https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js')
+    ->appendFile($this->basePath('js/reviews.js'));
+
+# Load StyleSheets
+$this->headLink()
+    ->appendStylesheet('https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.css');
+?>
+
+<div class="dropdown" id="dropdownFilterByProduct">
+    <button class="btn btn-default dropdown-toggle" type="button" id="filterByProduct" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+        Filter By
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="filterByProduct">
+            <li class="active"><a href="#" data-value="">All</a></li>
+        <?php foreach ($apps as $appSlug => $app): ?>
+            <li><a href="#" data-value="<?= $appSlug ?>"><?= $app ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<table id="grid-selection" class="table table-condensed table-hover table-striped">
+    <thead>
+    <tr>
+        <th data-column-id="id" data-type="numeric" data-identifier="true" data-order="asc">ID</th>
+        <th data-column-id="appSlug" data-formatter="appSlug">Product</th>
+        <th data-column-id="shopifyDomain">Customer Domain</th>
+        <th data-column-id="starRating" data-type="string" data-formatter="rating">Rating</th>
+        <th data-column-id="createdAt" data-formatter="dateFromApi" data-sortable="true">Date</th>
+    </tr>
+    </thead>
+</table>
