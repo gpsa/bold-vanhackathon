@@ -1,4 +1,4 @@
-# ZendSkeletonApplication
+# Shopify Reviews Manager
 
 ## Introduction
 
