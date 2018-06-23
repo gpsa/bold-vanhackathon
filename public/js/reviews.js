@@ -28,12 +28,14 @@
             }
         }
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
+        return;
         var rowIds = [];
         for (var i = 0; i < rows.length; i++) {
             rowIds.push(rows[i].id);
         }
         alert("Select: " + rowIds.join(","));
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+        return;
         var rowIds = [];
         for (var i = 0; i < rows.length; i++) {
             rowIds.push(rows[i].id);
