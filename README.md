@@ -11,7 +11,6 @@ docker-compose up --build
 docker-compose up
 
 ### INSTALL PHP DEPENDENCIES
-### ENABLE DEVELOPMENT ENVIRONMENT
 docker-compose exec --user www-data app composer install
 
 ### ENABLE DEVELOPMENT ENVIRONMENT
